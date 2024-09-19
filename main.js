@@ -1,5 +1,5 @@
-//// Donner la possibilité à l'utilisateur e choisir qurels caractères vont aller dans le mot
-// de passe, avec des checkbox par exemple. Lui demander la longueur.
+//// Donner la possibilité à l'utilisateur de choisir quels caractères vont aller dans le mot
+// de passe, avec des checkbox par exemple. Lui demander la longueur (avec un slider)
 
 // Pour donner le mot de passe, créer un élément à côté du bouton
 
@@ -10,6 +10,7 @@ let pswd_length = 12
 let IsButtonPressed = false // Le bouton "Générer" est il pressé?
 let bouton_generer = document.getElementById("start") // Obtenir le bouton "générer"
 let pswd_emplacement = document.getElementById("mdp") // Obtenir la div qui contient le <a>mdp</a>
+let tooltiptext = document.getElementById("tooltiptext")
 
 /// Méthodes
 // Méthode pour copier du texte au presse-papier
@@ -64,9 +65,11 @@ do {
 
         bouton_copy.addEventListener("click", (event) => {
             writeTextToClipboard(pswd) 
-            let tooltiptext = document.querySelector("tooltiptext")
-            console.log(tooltiptext)
             tooltiptext.textContent = "Copié !!"
+            setTimeout(() => {
+                tooltiptext.textContent = "Copier au presse-papier"
+              }, 1000);
+
         });
 
     });
