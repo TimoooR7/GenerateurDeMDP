@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+body {
+    min-height: 800px;
+
+    background-image: url('resources/ciel.webp');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#profile {
+    color: white;
+}
+
+#profile:hover {
+    color: #F29200;
+}
+
+#container {
+    border: solid 3px black;
+    backdrop-filter: blur(10px);
+    min-height: 500px;
+    width: 600px;
+    border-radius: 30px;
+    padding: 30px;
+}
+
+#main {
+    margin-bottom: 60px;
+}
+
+#generator {
+    max-height: 200px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    gap: 15px
+}
+#bottom {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+#generator #start{
+    min-width: 200px;
+    border-radius: 15px;
+    padding: 15px;
+
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 9px #999;
+    background-color: white;
+    color: black;
+}
+#generator #start:hover{
+    background-color: gray;
+}
+#generator #start:active{
+    background-color: gray;
+    box-shadow: 0 5px #505050;
+    transform: translateY(10px);
+}
+
+#generator input{
+    min-width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+#copy{
+    display: flex;
+    align-items: center;
+}
+
+#copy i{
+    font-size: 25px;
+}
+
+#mdp {
+    border: 3px solid blue;
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 15px;
+    
+    min-width: 150px;
+    height: 30px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#copy {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid transparent; /* Pas trouvé comment enlever la bordure dégeu autrement */
+    display: flex;
+
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 9px #999;
+    background-color: white;
+    color: black;
+
+    /* margin-bottom: 50px; */
+}
+
+#copy:hover{
+    background-color: gray;
+}
+#copy:active{
+    background-color: gray;
+    box-shadow: 0 5px #505050;
+    transform: translateY(10px);
+}
+
+
+.tooltiptext {
+    height: 100%;
+    min-width: 30px;
+    border: 1px solid blue;
+    margin-top: 15px;
+
+}
+
+.tooltip .tooltiptext {
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -40px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    
+}
+
+.tooltip .tooltiptext {
+    /* Cacher le tooltip */
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20%;
+    
+    /* Positionner le tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext:after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    
+    margin-left: -9%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    /* Afficher le tooltip quand hover */
+    visibility: visible;
+}
+
+
+/* Ajouter un peu d'ésthétique et un bon footer */
+/* Mettre le bouton copier au presse papier a côté du input avec le mdp
+/* Le cacher tant que le mdp n'a pas été généré
