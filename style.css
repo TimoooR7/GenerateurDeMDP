@@ -27,6 +27,41 @@ body {
     color: #F29200;
 }
 
+#parameters #checkboxes {
+    border: 2px solid palevioletred;
+}
+#parameters #checkboxes span {
+    display: flex;
+    align-items: center;
+    /* gap: 20px;
+    height: 40px; */
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #container {
     border: solid 3px black;
     backdrop-filter: blur(10px);

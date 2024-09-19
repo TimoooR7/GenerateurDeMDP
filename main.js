@@ -1,10 +1,10 @@
-//// Donner la possibilité à l'utilisateur de choisir quels caractères vont aller dans le mot
+//// TO DO
+// Donner la possibilité à l'utilisateur de choisir quels caractères vont aller dans le mot
 // de passe, avec des checkbox par exemple. Lui demander la longueur (avec un slider)
 
-// Pour donner le mot de passe, créer un élément à côté du bouton
 
 /// Variables 
-let win1852 = ['!', '#', '$', '%', '&', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '=', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', ']', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'Œ', ' ', '•', '—', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', ' ']
+let chars = ['!', '#', '$', '%', '&', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '=', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', ']', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'Œ', ' ', '•', '—', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', ' ']
 let pswd_length = 12
 
 let IsButtonPressed = false // Le bouton "Générer" est il pressé?
@@ -28,9 +28,16 @@ async function writeTextToClipboard(text){
 /// Code principal
 
 do {
+    //// Reinitialiser les checkboxs pour les choix du contenu du mdp (quand elles existeront)
+    
+
+
+
+
+
     var bouton_copy = document.getElementById("copy")
-        console.log(bouton_copy)
-        bouton_copy.style.display = "none"
+    console.log(bouton_copy)
+    bouton_copy.style.display = "none"
 
     /// Ecoute un événement "click" sur le bouton
     /// Lance la fonction si il a lieu
@@ -47,8 +54,8 @@ do {
     
         // Générer un mot de passe
         for (let i = 0; i < pswd_length; i++) {
-            let nbr = Math.floor(Math.random() * win1852.length)
-            pswd += win1852[nbr]
+            let nbr = Math.floor(Math.random() * chars.length)
+            pswd += chars[nbr]
     
         }
     
@@ -63,6 +70,7 @@ do {
         // Faire apparaître le bouton copy
         bouton_copy.style.display = "flex"
 
+        // Si le bouton "Copy" a été pressé
         bouton_copy.addEventListener("click", (event) => {
             writeTextToClipboard(pswd) 
             tooltiptext.textContent = "Copié !!"
