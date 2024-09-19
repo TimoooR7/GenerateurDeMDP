@@ -4,4 +4,4 @@ Fait dans le but d'améliorer mes compétences en réalisations de sites web, su
 
 
 Preview : 
-![preview](https://github.com/TimoooR7/GenerateurDeMDP/resources/webapp-preview.png)
+![preview](https://github.com/TimoooR7/GenerateurDeMDP/tree/main/resources/webapp-preview.png)
