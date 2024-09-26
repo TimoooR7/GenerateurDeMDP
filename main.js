@@ -4,14 +4,23 @@
 
 
 /// Variables 
-let chars = ['!', '#', '$', '%', '&', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '=', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', ']', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'Œ', ' ', '•', '—', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', ' ']
-let pswd_length = 12
+
+const chr_majletters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+const chr_minletters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+const chr_accentsletters = ['Œ','ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü']
+const chr_specialchars = ['!', '#', '$', '%', '&', '*', '+', ',', '-', '.', '/', '=', '?', '@','[', ']', '_', '•', '—',]
+const chr_numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+const chr_space = ' '
+
+const pswd_length = 12
 
 let IsButtonPressed = false // Le bouton "Générer" est il pressé?
 let bouton_generer = document.getElementById("start") // Obtenir le bouton "générer"
 let pswd_emplacement = document.getElementById("mdp") // Obtenir la div qui contient le <a>mdp</a>
 let tooltiptext = document.getElementById("tooltiptext")
 let checkboxes = document.querySelectorAll(".inp-cbx")
+let included_pswd_chars = []
+
 /// Méthodes
 // Méthode pour copier du texte au presse-papier
 async function writeTextToClipboard(text){
@@ -22,17 +31,68 @@ async function writeTextToClipboard(text){
         console.log(error)
     }
 
-}
+};
+
+// Méthode pour ajouter les caractères inclus dans le pswd si les checkbox
+// correspondantes sont cochées par l'utilisateur
+function includePswdCharTypesFromCheckbox(checkbox_id) {
+    console.log(`Current box id : ${checkbox_id}`)
+    switch(checkbox_id) {
+        case 'box1':
+            console.log("box1 - majletters")
+            included_pswd_chars += chr_majletters
+            break
+
+        case 'box2':
+            console.log("box2 - minletters")
+            included_pswd_chars += chr_minletters
+            break
+
+        case 'box3':
+            console.log("box3 - accentletters")
+            included_pswd_chars += chr_accentsletters
+            break
+
+        case 'box4':
+            console.log("box4 - specialchars")
+            included_pswd_chars += chr_specialchars
+            break
+
+        case 'box5':
+            console.log("box5 - numbers")
+            included_pswd_chars += chr_numbers
+            break
+            
+        case 'box6':
+            console.log("box6 - space")
+            included_pswd_chars += chr_space
+            break
+    }
+    console.log(included_pswd_chars)
+    return included_pswd_chars
+};
+
 
 
 /// Code principal
 
 do {
-   
-    
-    
+    included_pswd_chars = []
 
 
+
+    // Vérifier si une checkbox et laquelle est cliquée
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+            if (checkbox.checked) {
+                console.log(`${checkbox.id} IS CHECKED`)
+                includePswdCharTypesFromCheckbox(`${checkbox.id}`)
+            } else {
+                
+                console.log(`${checkbox.id} IS UNCHECKED`)
+            }
+        });
+    });
 
 
 
