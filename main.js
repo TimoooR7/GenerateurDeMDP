@@ -11,7 +11,7 @@ let IsButtonPressed = false // Le bouton "Générer" est il pressé?
 let bouton_generer = document.getElementById("start") // Obtenir le bouton "générer"
 let pswd_emplacement = document.getElementById("mdp") // Obtenir la div qui contient le <a>mdp</a>
 let tooltiptext = document.getElementById("tooltiptext")
-
+let checkboxes = document.querySelectorAll(".inp-cbx")
 /// Méthodes
 // Méthode pour copier du texte au presse-papier
 async function writeTextToClipboard(text){
@@ -28,15 +28,16 @@ async function writeTextToClipboard(text){
 /// Code principal
 
 do {
-    //// Reinitialiser les checkboxs pour les choix du contenu du mdp (quand elles existeront)
+   
+    
     
 
 
 
 
 
+    // Obtenir bouton copy et l'effacer
     var bouton_copy = document.getElementById("copy")
-    console.log(bouton_copy)
     bouton_copy.style.display = "none"
 
     /// Ecoute un événement "click" sur le bouton
