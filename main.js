@@ -39,33 +39,27 @@ function includePswdCharTypesFromCheckbox(checkbox_id) {
     console.log(`Current box id : ${checkbox_id}`)
     switch(checkbox_id) {
         case 'box1':
-            console.log("box1 - majletters")
-            included_pswd_chars += chr_majletters
+            chr_majletters.forEach(char => included_pswd_chars.push(char))
             break
 
         case 'box2':
-            console.log("box2 - minletters")
-            included_pswd_chars += chr_minletters
+            chr_minletters.forEach(char => included_pswd_chars.push(char))
             break
 
         case 'box3':
-            console.log("box3 - accentletters")
-            included_pswd_chars += chr_accentsletters
+            chr_accentsletters.forEach(char => included_pswd_chars.push(char))
             break
 
         case 'box4':
-            console.log("box4 - specialchars")
-            included_pswd_chars += chr_specialchars
+            chr_specialchars.forEach(char => included_pswd_chars.push(char))
             break
 
         case 'box5':
-            console.log("box5 - numbers")
-            included_pswd_chars += chr_numbers
+            chr_numbers.forEach(char => included_pswd_chars.push(char))
             break
-            
+
         case 'box6':
-            console.log("box6 - space")
-            included_pswd_chars += chr_space
+            chr_space.forEach(char => included_pswd_chars.push(char))
             break
     }
     console.log(included_pswd_chars)
@@ -87,8 +81,18 @@ do {
             if (checkbox.checked) {
                 console.log(`${checkbox.id} IS CHECKED`)
                 includePswdCharTypesFromCheckbox(`${checkbox.id}`)
+
+
+                /// TODO Faire en sorte que les caractères ne puissent pas être mis
+                /// plusieurs fois dans included_pswd_chars s'ils y sont déja
+
+
             } else {
                 
+                /// Faire une fonction qui enlève les caractères de included_pswd_chars[] 
+                /// si la checkbox est décochée
+
+
                 console.log(`${checkbox.id} IS UNCHECKED`)
             }
         });
