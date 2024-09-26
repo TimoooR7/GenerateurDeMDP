@@ -84,13 +84,15 @@ do {
 
 
                 /// TODO Faire en sorte que les caractères ne puissent pas être mis
-                /// plusieurs fois dans included_pswd_chars s'ils y sont déja
-
+                /// plusieurs fois dans included_pswd_chars s'ils y sont déja.
+                
 
             } else {
                 
                 /// Faire une fonction qui enlève les caractères de included_pswd_chars[] 
                 /// si la checkbox est décochée
+                /// Pour cela, on pourrait essayer de séparer les caractères dans le tableau par un certain char, comme §
+                /// pour pouvoir enlever ce qui ce trouve entre. C'est chaud mais c une idée...
 
 
                 console.log(`${checkbox.id} IS UNCHECKED`)
