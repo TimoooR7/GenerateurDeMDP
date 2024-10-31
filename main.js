@@ -1,136 +1,95 @@
-//// TO DO
-// Donner la possibilité à l'utilisateur de choisir quels caractères vont aller dans le mot
-// de passe, avec des checkbox par exemple. Lui demander la longueur (avec un slider)
-
-
 /// Variables 
 
-const chr_majletters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+const chr_majletters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 const chr_minletters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-const chr_accentsletters = ['Œ','ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü']
-const chr_specialchars = ['!', '#', '$', '%', '&', '*', '+', ',', '-', '.', '/', '=', '?', '@','[', ']', '_', '•', '—',]
+const chr_accentsletters = ['Œ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü']
+const chr_specialchars = ['!', '#', '$', '%', '&', '*', '+', ',', '-', '.', '/', '=', '?', '@', '[', ']', '_', '•', '—',]
 const chr_numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-const chr_space = ' '
+const chr_space = [" "]
 
 const pswd_length = 12
 
-let IsButtonPressed = false // Le bouton "Générer" est il pressé?
 let bouton_generer = document.getElementById("start") // Obtenir le bouton "générer"
 let pswd_emplacement = document.getElementById("mdp") // Obtenir la div qui contient le <a>mdp</a>
 let tooltiptext = document.getElementById("tooltiptext")
 let checkboxes = document.querySelectorAll(".inp-cbx")
 let included_pswd_chars = []
 
+// Liste de liste qui contient la checkbox et ses caractères attribués
+const charOptions = [
+    { checkbox: document.getElementById("box1"), chars: chr_majletters },
+    { checkbox: document.getElementById("box2"), chars: chr_minletters },
+    { checkbox: document.getElementById("box3"), chars: chr_accentsletters },
+    { checkbox: document.getElementById("box4"), chars: chr_specialchars },
+    { checkbox: document.getElementById("box5"), chars: chr_numbers },
+    { checkbox: document.getElementById("box6"), chars: chr_space }
+];
+
+
 /// Méthodes
 // Méthode pour copier du texte au presse-papier
-async function writeTextToClipboard(text){
+async function writeTextToClipboard(text) {
     try {
         await navigator.clipboard.writeText(text)
     }
-    catch (error){
+    catch (error) {
         console.log(error)
     }
 
 };
 
-// Méthode pour ajouter les caractères inclus dans le pswd si les checkbox
-// correspondantes sont cochées par l'utilisateur
-function includePswdCharTypesFromCheckbox(checkbox_id) {
-    console.log(`Current box id : ${checkbox_id}`)
-    switch(checkbox_id) {
-        case 'box1':
-            chr_majletters.forEach(char => included_pswd_chars.push(char))
-            break
+// Fonction pour mettre à jour included_pswd_chars. Elle check si la box est cochée ou non
+function updateIncludedChars() {
 
-        case 'box2':
-            chr_minletters.forEach(char => included_pswd_chars.push(char))
-            break
+    included_pswd_chars = []; // Réinitialiser à chaque changement
 
-        case 'box3':
-            chr_accentsletters.forEach(char => included_pswd_chars.push(char))
-            break
-
-        case 'box4':
-            chr_specialchars.forEach(char => included_pswd_chars.push(char))
-            break
-
-        case 'box5':
-            chr_numbers.forEach(char => included_pswd_chars.push(char))
-            break
-
-        case 'box6':
-            chr_space.forEach(char => included_pswd_chars.push(char))
-            break
-    }
-    console.log(included_pswd_chars)
-    return included_pswd_chars
-};
-
-
-
-/// Code principal
-
-do {
-    included_pswd_chars = []
-
-
-
-    // Vérifier si une checkbox et laquelle est cliquée
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', (event) => {
-            if (checkbox.checked) {
-                console.log(`${checkbox.id} IS CHECKED`)
-                includePswdCharTypesFromCheckbox(`${checkbox.id}`)
-
-
-                /// TODO Faire en sorte que les caractères ne puissent pas être mis
-                /// plusieurs fois dans included_pswd_chars s'ils y sont déja.
-                
-
-            } else {
-                
-                /// Faire une fonction qui enlève les caractères de included_pswd_chars[] 
-                /// si la checkbox est décochée
-                /// Pour cela, on pourrait essayer de séparer les caractères dans le tableau par un certain char, comme §
-                /// pour pouvoir enlever ce qui ce trouve entre. C'est chaud mais c une idée...
-
-
-                console.log(`${checkbox.id} IS UNCHECKED`)
-            }
-        });
+    charOptions.forEach(option => {
+        if (option.checkbox.checked) {
+            included_pswd_chars = included_pswd_chars.concat(option.chars);
+        }
     });
 
 
+    console.log(included_pswd_chars)
+}
 
-    // Obtenir bouton copy et l'effacer
-    var bouton_copy = document.getElementById("copy")
-    bouton_copy.style.display = "none"
 
-    /// Ecoute un événement "click" sur le bouton
-    /// Lance la fonction si il a lieu
-    bouton_generer.addEventListener("click", (event) => {
-        console.log(event.target)
+/// PARTIE PRINCIPALE
 
-        let pswd = ""
-        let a = ""
+// Mettre à jour les caractères inclus si le bouton a été coché/décoché
+charOptions.forEach(option => {
+    option.checkbox.addEventListener('change', updateIncludedChars);
+});
 
-        IsButtonPressed = true;
-        
-        // Obtenir le contenu de la div qui contient (ou pas encore) le mdp
-        let pswd_empl_content = pswd_emplacement.innerHTML
-    
+
+// Obtenir bouton copy et l'effacer
+var bouton_copy = document.getElementById("copy")
+bouton_copy.style.display = "none"
+
+/// Ecoute un événement "click" sur le bouton
+/// Lance la fonction si il a lieu
+bouton_generer.addEventListener("click", (event) => {
+    console.log(event.target)
+
+    let pswd = ""
+    let a = ""
+
+
+    // Check si il y a pas de caractères inclus. -> Si aucune checkbox est cochée quoi. Saute la génération si oui
+    if (included_pswd_chars.length > 0) {
+
         // Générer un mot de passe
         for (let i = 0; i < pswd_length; i++) {
-            let nbr = Math.floor(Math.random() * chars.length)
-            pswd += chars[nbr]
-    
+            let nbr = Math.floor(Math.random() * included_pswd_chars.length)
+            pswd += included_pswd_chars[nbr]
+
         }
-    
+
         // Créer l'interpolation qui contient le mdp
         a = `
-        <a>${pswd}</a>
-        `;
-        
+                <a>${pswd}</a>
+                `;
+
         // Placer le mot de passe dans la div
         pswd_emplacement.innerHTML = a
 
@@ -139,15 +98,15 @@ do {
 
         // Si le bouton "Copy" a été pressé
         bouton_copy.addEventListener("click", (event) => {
-            writeTextToClipboard(pswd) 
+            writeTextToClipboard(pswd)
             tooltiptext.textContent = "Copié !!"
             setTimeout(() => {
                 tooltiptext.textContent = "Copier au presse-papier"
-              }, 1000);
-
+            }, 1000);
         });
-
-    });
-
-}
-while (IsButtonPressed === true)
+    }
+    else 
+    {
+        console.log("Le mot de passe est vide.")
+    }
+});
