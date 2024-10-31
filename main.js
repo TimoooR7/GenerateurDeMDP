@@ -53,24 +53,7 @@ function updateIncludedChars() {
     console.log(included_pswd_chars)
 }
 
-
-/// PARTIE PRINCIPALE
-
-// Mettre à jour les caractères inclus si le bouton a été coché/décoché
-charOptions.forEach(option => {
-    option.checkbox.addEventListener('change', updateIncludedChars);
-});
-
-
-// Obtenir bouton copy et l'effacer
-var bouton_copy = document.getElementById("copy")
-bouton_copy.style.display = "none"
-
-/// Ecoute un événement "click" sur le bouton
-/// Lance la fonction si il a lieu
-bouton_generer.addEventListener("click", (event) => {
-    console.log(event.target)
-
+function generatePswd() {
     let pswd = ""
     let a = ""
 
@@ -85,19 +68,14 @@ bouton_generer.addEventListener("click", (event) => {
 
         }
 
-        // Créer l'interpolation qui contient le mdp
-        a = `
-                <a>${pswd}</a>
-                `;
-
         // Placer le mot de passe dans la div
-        pswd_emplacement.innerHTML = a
+        pswd_emplacement.innerHTML = `<a>${pswd}</a>`
 
         // Faire apparaître le bouton copy
         bouton_copy.style.display = "flex"
 
         // Si le bouton "Copy" a été pressé
-        bouton_copy.addEventListener("click", (event) => {
+        bouton_copy.addEventListener("click", () => {
             writeTextToClipboard(pswd)
             tooltiptext.textContent = "Copié !!"
             setTimeout(() => {
@@ -105,8 +83,26 @@ bouton_generer.addEventListener("click", (event) => {
             }, 1000);
         });
     }
-    else 
-    {
-        console.log("Le mot de passe est vide.")
+    else {
+        pswd_emplacement.innerHTML = "<a style='color: red'>Veuillez choisir des caractères.</a>"
+        bouton_copy.style.display = "none"
     }
+
+}
+
+
+/// PARTIE PRINCIPALE
+
+// Mettre à jour les caractères inclus si le bouton a été coché/décoché
+charOptions.forEach(option => {
+    option.checkbox.addEventListener('change', updateIncludedChars);
 });
+
+
+// Obtenir bouton copy et l'effacer
+var bouton_copy = document.getElementById("copy")
+bouton_copy.style.display = "none"
+
+
+/// Ecoute un événement "click" sur le bouton
+bouton_generer.addEventListener("click", generatePswd)
